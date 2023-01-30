@@ -133,7 +133,7 @@ MonoBehaviour:
   _throwPower: 550
   _throwUpPower: 200
   _destroyTime: 3
-  _explosionPower: 300
+  _explosionPower: 200
 --- !u!135 &3549811494221581575
 SphereCollider:
   m_ObjectHideFlags: 0

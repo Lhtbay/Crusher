@@ -18,8 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _crushWallPrefab;
     [SerializeField] private GameObject _crushWallParent;
     private List<GameObject> _listCrushWall;
-    private int _notActiveCrushWallCount = 0;
-    private float _ratioActiveNotActiveCount = 0;
+    private float _notActiveCrushWallCount, _ratioActiveNotActiveCount, _crushListCount = 0;
 
     [Header("Pusher Treadmill Settings")]
     [SerializeField] private GameObject _pusherPrefab;
@@ -81,6 +80,8 @@ public class GameManager : MonoBehaviour
             _crushWallPositionX += 0.5f;
             _crushWallPositionY = 5f;
         }
+
+        _crushListCount = _listCrushWall.Count;
 
         for (int i = 0; i < 10; i++)
         {
@@ -156,8 +157,8 @@ public class GameManager : MonoBehaviour
                 _notActiveCrushWallCount++;
             }
         }
-        _ratioActiveNotActiveCount = _notActiveCrushWallCount / _listCrushWall.Count;        
-        print(_ratioActiveNotActiveCount);
+        
+        _ratioActiveNotActiveCount = _notActiveCrushWallCount / _crushListCount;              
 
         if (_ratioActiveNotActiveCount >= 0.8f)
         {

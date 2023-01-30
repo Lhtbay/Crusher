@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsTouchBall: 0
-  _explosionPower: 250
+  _explosionPower: 200
