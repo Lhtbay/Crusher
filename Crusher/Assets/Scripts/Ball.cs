@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float _gravityPower;
+    [Header("Ball Settings")]
     [SerializeField] private float _throwPower;
+    [SerializeField] private float _throwUpPower;
     [SerializeField] private float _destroyTime;
+
+    [Header("Crush Wall Settings")]
+    [SerializeField] private float _explosionPower;
 
     private float _timer = 0;
 
     private bool _isTouchLine, _canOneTimeRun = false;
 
     private Rigidbody _thisRb;
+    private Rigidbody _crushWallRb;
 
     private void Start()
     {
@@ -64,6 +69,16 @@ public class Ball : MonoBehaviour
             _isTouchLine = true;
             _thisRb.velocity = Vector3.zero;
             _thisRb.AddForce(Vector3.right*_throwPower);
+            _thisRb.AddForce(Vector3.up * _throwUpPower);
+        }
+        if (collision.gameObject.tag == "Wall")
+        {
+            collision.gameObject.GetComponent<WillCrushWall>().IsTouchBall = true;
+            _crushWallRb = collision.gameObject.GetComponent<Rigidbody>();
+            _crushWallRb.isKinematic = false;
+
+            _crushWallRb.AddForce(Vector3.left * _explosionPower);
+            _crushWallRb.AddForce(Vector3.up* _explosionPower);
         }
     }
 

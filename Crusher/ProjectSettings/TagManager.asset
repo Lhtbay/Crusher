@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Line
+  - Wall
+  - LeftFinish
+  - Money
   layers:
   - Default
   - TransparentFX
@@ -13,10 +16,10 @@ TagManager:
   - Water
   - UI
   - Line
-  - 
-  - 
-  - 
-  - 
+  - CrushWall
+  - Treadmill
+  - Pusher
+  - Ball
   - 
   - 
   - 

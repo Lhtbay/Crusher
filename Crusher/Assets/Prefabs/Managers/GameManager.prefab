@@ -45,6 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ballPrefab: {fileID: 8735979814241455836, guid: 03ad6de85913fcc4da5504662096123b, type: 3}
-  _ballParent: {fileID: 0}
-  _ballSpawnTime: 3
+  _ballSpawnTime: 1.5
   _ballSpawnPoint: {fileID: 0}
+  _ballParent: {fileID: 0}
+  _crushWallPrefab: {fileID: 7225155282754492950, guid: 8bc97d70617140f4086dd0786277733f, type: 3}
+  _crushWallParent: {fileID: 0}
+  _pusherPrefab: {fileID: 1146734324457456847, guid: 166399ad0db09ab4da4b078c814d40a3, type: 3}
+  _pusherParent: {fileID: 0}
+  _pusherStartPoint: {fileID: 0}
+  _pusherBeSpawnTime: 2

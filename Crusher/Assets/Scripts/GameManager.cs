@@ -14,7 +14,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _ballSpawnPoint;
     [SerializeField] private GameObject _ballParent;
 
-    private float _timer = 0;
+    [Header("Crush Wall Pooling Settings")]
+    [SerializeField] private GameObject _crushWallPrefab;
+    [SerializeField] private GameObject _crushWallParent;
+    private List<GameObject> _listCrushWall;
+    private int _notActiveCrushWallCount = 0;
+    private float _ratioActiveNotActiveCount = 0;
+
+    [Header("Pusher Treadmill Settings")]
+    [SerializeField] private GameObject _pusherPrefab;
+    [SerializeField] private GameObject _pusherParent;
+    [SerializeField] private GameObject _pusherStartPoint;
+    [SerializeField] private float _pusherBeSpawnTime;
+    private List<GameObject> _listPusher;
+
+    private float _timer,_timerPusherSpawn,_timer2 = 0;
+    private float _crushWallPositionX = 3f;
+    private float _crushWallPositionY = 5f;
+    private float _crushWallPositionZ = -0.5f;
 
     private bool _throwBall = true;
 
@@ -40,14 +57,39 @@ public class GameManager : MonoBehaviour
     private void StartMethod()
     {
         _listBall = new List<GameObject>();
+        _listPusher = new List<GameObject>();
+        _listCrushWall = new List<GameObject>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject newBall = Instantiate(_ballPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             newBall.transform.parent = _ballParent.transform;
             _listBall.Add(newBall);
             newBall.SetActive(false);
         }
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                GameObject newCrush = Instantiate(_crushWallPrefab,
+                    new Vector3(_crushWallPositionX, _crushWallPositionY, _crushWallPositionZ),Quaternion.identity);
+                newCrush.transform.parent = _crushWallParent.transform;
+                _listCrushWall.Add(newCrush);
+                _crushWallPositionY -= 0.5f;
+            }
+            _crushWallPositionX += 0.5f;
+            _crushWallPositionY = 5f;
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject newPusher = Instantiate(_pusherPrefab, _pusherStartPoint.transform.position,Quaternion.identity);
+            newPusher.SetActive(false);
+            newPusher.transform.parent = _pusherParent.transform;
+            _listPusher.Add(newPusher);
+        }
+
     }
 
     private void UpdateMethods()
@@ -70,6 +112,29 @@ public class GameManager : MonoBehaviour
                 _timer = 0;
             }
         }
+
+        _timerPusherSpawn += Time.deltaTime;
+        if (_timerPusherSpawn >= _pusherBeSpawnTime)
+        {
+            foreach (var item in _listPusher)
+            {
+                if (!item.activeInHierarchy)
+                {
+                    item.transform.position = _pusherStartPoint.transform.position;
+                    item.SetActive(true);
+                    break;
+                }
+            }
+            _timerPusherSpawn = 0;
+        }
+
+        _timer2 += Time.deltaTime;
+        if (_timer2 >= 5)
+        {
+            CheckGameOver();
+            _timer2 = 0;
+        }
+
     }
 
     #endregion
@@ -79,6 +144,26 @@ public class GameManager : MonoBehaviour
     public void CanThrowNewBall()
     {
         _throwBall = true;
+    }
+
+    private void CheckGameOver()
+    {
+        _notActiveCrushWallCount = 0;
+        foreach (var item in _listCrushWall)
+        {
+            if (!item.activeInHierarchy)
+            {
+                _notActiveCrushWallCount++;
+            }
+        }
+        _ratioActiveNotActiveCount = _notActiveCrushWallCount / _listCrushWall.Count;        
+        print(_ratioActiveNotActiveCount);
+
+        if (_ratioActiveNotActiveCount >= 0.8f)
+        {
+            print("YOU ARE WÝNNER");
+        }
+
     }
 
     #endregion

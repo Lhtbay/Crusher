@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8793150476576433470}
   - component: {fileID: 5967450485178178676}
   - component: {fileID: 7202696956708403424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1587864540241092529}
   - component: {fileID: 3549811494221581575}
   - component: {fileID: 6028346115294056137}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,9 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a89ab6f737d4ce34080805bbf4a9e777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityPower: 0
-  _throwPower: 500
+  _throwPower: 550
+  _throwUpPower: 200
   _destroyTime: 3
+  _explosionPower: 300
 --- !u!135 &3549811494221581575
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -160,5 +161,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
