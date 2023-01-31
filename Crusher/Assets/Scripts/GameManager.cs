@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        print(" !!! This game made in just 2 days !!! Baþer Alper Yalnýz");
         StartMethod();
     }
 
